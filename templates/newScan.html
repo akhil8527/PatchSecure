@@ -1,0 +1,67 @@
+{% extends "index.html" %}
+
+{% block main_content %}
+    <div class="main-content">
+        <div class="form-box">
+            <div class="form-container" id="form-container">
+                <h1>Enter URL and Criticality</h1>
+                <form id="inputForm">
+                    <label for="url">URL:</label>
+                    <input type="text" id="url" name="url" required>
+                    <label for="criticality">Criticality:</label>
+                    <input type="text" id="criticality" name="criticality" required>
+                    <div class="submit-container">
+                        <button type="submit" id="submit-button">Submit</button>
+                        <div class="loader" id="loader"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="report-content">
+            <h2 id="scan-title">Scan Information:</h2>
+            <div id="scan-info" class="scanInfo-container"></div>
+            <h2 id="output-title">Vulnerability Information:</h2>
+            <div id="output" class="result-container"></div>
+        </div>
+    </div>
+    <script src="/static/js/report-render.js"></script>
+    <script>
+        document.getElementById('inputForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const submitButton = document.getElementById('submit-button');
+            const loader = document.getElementById('loader');
+
+            submitButton.disabled = true;
+            submitButton.style.backgroundColor = '#0056b3'; // Change button color
+            loader.style.display = 'block'; // Show loader
+
+            const url = document.getElementById('url').value;
+            const criticality = document.getElementById('criticality').value;
+
+            // Fetch and display results
+            const response = await fetch('/process', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ url, criticality })
+            });
+            
+            const results = await response.json();
+            
+            reportRender (results);
+
+            // Hide the form and center the output  
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementsByClassName('form-box')[0].style.display = 'none';
+            document.querySelector('.form-box').style.justifyContent = 'flex-start';
+
+            // Hide loader and reset button
+            loader.style.display = 'none';
+            submitButton.disabled = false;
+            submitButton.style.backgroundColor = '#007bff'; // Reset button color
+        });
+    </script>
+    </div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "index.html" %}
+
+{% block main_content %}
+    <div class="main-content">
+        <div class="report-content">
+            <div class="scan-page-heading">
+                <h1>Scan</h1>
+                <button onclick="document.location='/NewScan'" id="new-scan-submit-button">+ New Scan</button>
+            </div>
+            <div class="report-seprator-bold-green"></div>
+            <div class="report-content-container">
+                <div class="report-table">
+                    <div id="file-list"></div>
+                </div>
+                <h2 id="scan-title">Scan Information:</h2>
+                <div id="scan-info" class="scanInfo-container"></div>
+                <h2 id="output-title">Vulnerability Information:</h2>
+                <div id="output" class="result-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/report-render.js"></script>
+    <script>
+        async function fetchJsonFiles() {
+            const response = await fetch('/api/json-files');
+            const files = await response.json();
+            const fileList = document.getElementById('file-list');
+            fileList.innerHTML = '';
+            files.forEach(file => {
+                //Creating <div> function with classname as scan-header
+                const resultHeader = document.createElement('div');
+                resultHeader.className = 'scan-header';
+
+                const nameP = document.createElement('h2');
+                nameP.className = 'scan-name';
+                nameP.textContent = `${file.name}`;
+
+                //Creating <h2> function to disply the heading of status: open
+                const statusP = document.createElement('h2');
+                statusP.className = 'scan-modtime';
+                statusP.textContent = `${file.last_modified}`;
+                
+                //Creating <h2> function to disply the heading of status: open
+                const reportButton = document.createElement('button');
+                reportButton.className = 'report-button';
+                reportButton.textContent = `View Report`;
+                
+                //Append the information to parent element
+                resultHeader.appendChild(nameP);
+                resultHeader.appendChild(statusP);
+                resultHeader.appendChild(reportButton);
+                
+                reportButton.onclick = async () => {
+                                            const response = await fetch(`/api/json-files/${file.name}`);
+                                            const results = await response.json();
+                                            fetchAndDisplayJson(results);
+                }
+
+                fileList.appendChild(resultHeader);
+            });
+        }
+        
+        window.onload = fetchJsonFiles;
+
+        async function fetchAndDisplayJson(results) {
+            reportRender (results)
+           
+            document.querySelector('.report-content').style.justifyContent = 'flex-start';
+            
+            // Hide the form and center the output
+            document.getElementById('file-list').style.display = 'none';
+            document.getElementsByClassName('report-table')[0].style.display = 'none';
+        };
+    </script>
+{% endblock %}

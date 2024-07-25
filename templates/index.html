@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>PatchSecure</title>
+</head>
+<body>
+    <div class="header">
+        <div class="cmp-header__logo" id="header__logo">
+            <a href="/" title="Deloitte India">
+                    <img src="/static/images/deloitte.svg" alt="Deloitte India" width=" " height=" ">
+            </a>
+         </div>
+         <div class="cmp-title">
+            <h1>PatchSecure</h1>
+         </div>
+    </div>
+    <div class="sidebar" id="sidebar">
+            <button class="collapse-btn" id="collapse-btn">&lt;</button>
+            <!-- <div class="separator-bold"></div> -->
+            <a href="/" class="menu-item"><i class="fas fa-home"></i><span>Home</span></a>
+            <div class="separator-light"></div>
+            <a href="Report" class="menu-item"><i class="fas fa-file-alt"></i><span>Scan</span></a>
+            <div class="separator-light"></div>
+    </div>
+    
+    {% block main_content %}
+    <div class="main-content">
+        <div class="AboutTool">
+            <div class="AT-heading" id="AT_heading">
+                <div class="AT-heading-container">
+                    <div class="AT-heading-content">
+                        <h1>PatchSecure</h1>
+                        <h2>Automated Secure Code Generation Tool</h2>
+                        <p>PatchSecure simplifies vulnerability management by integrating vulnerability scanning and automatic patch suggestion into a single tool.  It aims to significantly reduce the risk of security breaches by identifying vulnerabilities and suggest the appropriate patches(code or steps to mitigate), thereby fortifying the overall security posture of software applications and ensuring your systems are always protected against the latest threats</p>    
+                    </div>
+                </div>
+                    <div class="AT-heading-image">
+                        <img src="/static/images/image1.png" alt="Blank Image" width="400" height="400"/>
+                    </div>
+            </div>
+            
+            <div class="AT-Transformation">
+                <div class="AT-T-content">
+                    <h2>Traditional Method</h2>
+                    <p>Traditional methods of identifying and patching vulnerabilities often rely on manual code reviews and static analysis tools, which can be time-consuming and prone to oversight. These methods are successful but may have limited generality, e.g., some solutions only work on certain programming languages or vulnerabilities. They may also suffer from inaccuracies as the design often depends on manual analysis of the vulnerabilities.</p>
+                </div>
+    
+                <div class="AT-T-content">
+                    <h2>PatchSecure Method</h2>
+                    <p>PatchSecure offers an LLM-based (Large Language Model-based) secure code generation tool designed to identify and patch vulnerabilities directly within the source code. This tool leverages the advanced capabilities of large language models, to understand the context and semantics of the code, identify potential security flaws, and suggest or apply patches to mitigate these vulnerabilities.</p>
+                </div>
+            </div>
+            
+            <div class="AT-KeyFeatures-Container">
+                <h1>Key Features</h1>
+                <div class="report-seprator-bold-green"></div>
+                <div class="AT-KeyFeatures">
+                    <div class="AT-KeyFeatures-Section-1">
+                        <div class="AT-KeyFeatures-S1">
+                            <h2>Automated Vulnerability Detection:</h2>
+                            <p>PatchSecure automates the process of identifying vulnerabilities within software code, enabling proactive security measures.</p>
+                        </div>
+                        <div class="AT-KeyFeatures-S1">
+                            <h2>Code Generation:</h2>
+                            <p>Utilizing advanced Language Models, PatchSecure generates secure code patches or suggests detailed steps customized to address specific vulnerabilities, enhancing software security.</p>
+                        </div>
+                    </div>
+                    <div class="AT-KeyFeatures-Section-2">
+                        <div class="AT-KeyFeatures-S1">
+                            <h2>Customizable Patching:</h2>
+                            <p>Provides flexibility for developers to review and customize generated patches according to specific requirements or coding standards.</p>
+                        </div>
+                    </div>
+                    <!-- <ol>
+                        <li><strong>Automated Vulnerability Detection:</strong> PatchSecure automates the process of identifying vulnerabilities within software code, enabling proactive security measures.</li>
+                        <li><strong>Code Generation:</strong> Utilizing advanced Language Models, PatchSecure generates secure code patches or suggests detailed steps customized to address specific vulnerabilities, enhancing software security.</li>
+                        <li><strong>Customizable Patching:</strong> Provides flexibility for developers to review and customize generated patches according to specific requirements or coding standards.</li>
+                    </ol> -->
+                </div>
+            </div>
+
+            <div class="AT-KeyBenefits">
+                <h1>Benefits</h1>
+                <div class="report-seprator-bold-green"></div>
+            <ol>
+                <li><strong>Enhanced Security:</strong> PatchSecure significantly reduces the risk of security breaches by promptly identifying and help mitigating vulnerabilities within application</li>
+                <li><strong>Time and Cost Efficiency: </strong> Automation of vulnerability detection and patch generation processes saves time and resources for development teams, leading to increased efficiency.</li>
+                <li><strong>Comprehensive Coverage:</strong> Offers comprehensive coverage for identifying and patching various types of vulnerabilities, ensuring robust protection against security threats.</li>
+                <li><strong>Improved Compliance:</strong> Helps organizations adhere to industry standards and regulatory requirements by maintaining secure coding practices and mitigating potential security risks.</li>
+                <li><strong>Streamlined Development Workflow:</strong> Integrates seamlessly into existing development workflows, minimizing disruptions and facilitating smooth collaboration between development and security teams.</li>
+            </ol>
+            </div>      
+        </div>
+        <script>
+            window.addEventListener('scroll', function() {
+                const header = document.getElementById('AT_heading');
+                const content = document.getElementsByClassName('AT-heading-container');
+                const image = document.getElementsByClassName('AT-heading-image');
+                const scrollValue = window.scrollY;
+                const maxHeaderHeight = window.innerHeight - 70;
+                const minHeaderHeight = 60;
+                const maxFontSize = 1;
+                const minFontSize = 1.5;
+                
+                const paddingValue = Math.min(300, 0 + scrollValue/2) + 'px';
+                const paddingValueContent = Math.min(200, 0 + scrollValue/2) + 'px';
+                const paddingValueImage = Math.min(100, 0 + scrollValue/4) + 'px';
+
+                let newHeight = Math.max(minHeaderHeight, maxHeaderHeight - scrollValue/100);
+                let newFontSize = Math.max(minFontSize, maxFontSize - scrollValue / 400);
+    
+                header.style.height = newHeight + 'px';
+                
+                header.style.paddingTop = paddingValue;
+                content[0].style.paddingTop = paddingValueContent;
+                image[0].style.paddingTop = paddingValueImage;
+            });
+        </script>
+        <!-- <div class="form-box">
+            <div class="form-container" id="form-container">
+                <h1>Enter URL and Criticality</h1>
+                <form id="inputForm">
+                    <label for="url">URL:</label>
+                    <input type="text" id="url" name="url" required>
+                    <label for="criticality">Criticality:</label>
+                    <input type="text" id="criticality" name="criticality" required>
+                    <div class="submit-container">
+                        <button type="submit" id="submit-button">Submit</button>
+                        <div class="loader" id="loader"></div>
+                    </div>
+                </form>
+            </div>
+        </div> -->
+        <!-- <div class="report-content">
+            <h2 id="scan-title">Scan Information:</h2>
+            <div id="scan-info" class="scanInfo-container"></div>
+            <h2 id="output-title">Vulnerability Information:</h2>
+            <div id="output" class="result-container"></div>
+        </div>
+    </div>
+    <script src="/static/js/report-render.js"></script>
+    <script>
+        document.getElementById('inputForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const submitButton = document.getElementById('submit-button');
+            const loader = document.getElementById('loader');
+
+            submitButton.disabled = true;
+            submitButton.style.backgroundColor = '#0056b3'; // Change button color
+            loader.style.display = 'block'; // Show loader
+
+            const url = document.getElementById('url').value;
+            const criticality = document.getElementById('criticality').value;
+
+            // Fetch and display results
+            const response = await fetch('/process', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ url, criticality })
+            });
+            
+            const results = await response.json();
+            
+            reportRender (results);
+
+            // Hide the form and center the output  
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementsByClassName('form-box')[0].style.display = 'none';
+            document.querySelector('.form-box').style.justifyContent = 'flex-start';
+
+            // Hide loader and reset button
+            loader.style.display = 'none';
+            submitButton.disabled = false;
+            submitButton.style.backgroundColor = '#007bff'; // Reset button color
+        });
+    </script> -->
+    {% endblock %}
+    <script>
+        document.getElementById('collapse-btn').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+            this.textContent = sidebar.classList.contains('collapsed') ? '>' : '<';
+        });
+    </script>
+</body>
+</html>
